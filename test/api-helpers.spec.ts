@@ -1,6 +1,8 @@
 import { URLSearchParams } from '@angular/http';
 import { ApiHelpers } from '../src/api-helpers';
 
+import {} from 'jasmine';
+
 describe('ApiHelpers', () => {
   describe('interpolate', () => {
     it('should interpolate :post_id and :id', () => {
@@ -11,7 +13,7 @@ describe('ApiHelpers', () => {
     });
 
     it('should interpolate :post_id and remove it', () => {
-      let search = {post_id: 1, order_by: '-created_at'};
+      let search: any = {post_id: 1, order_by: '-created_at'};
       let interpolatedPath = ApiHelpers.interpolate('/posts/:post_id/comments', search, true);
       expect(interpolatedPath).toEqual('/posts/1/comments');
       expect(search).toEqual({order_by: '-created_at'});

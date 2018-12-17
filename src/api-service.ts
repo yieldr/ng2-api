@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import {Response, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs';
+
 import {ApiHelpers} from './api-helpers';
 import {ApiHttp} from './api-http';
 
@@ -35,7 +37,7 @@ export class ApiService<T> {
     return this.http.get(
       ApiHelpers.interpolate(`${this.path}/:id`, {id}),
       requestOptions
-    ).map((res: Response) => this.deserialize(res.json()));
+    ).pipe(map((res: Response) => this.deserialize(res.json())));
   }
 
   findAll(search?: any): Observable<T[]> {
@@ -48,23 +50,23 @@ export class ApiService<T> {
     return this.http.get(
       interpolatedPath,
       requestOptions
-    ).map((res: Response) => {
+    ).pipe(map((res: Response) => {
       return this.extractArray(res.json()).map((item: any) => {
         return this.deserialize(item);
       });
-    });
+    }));
   }
 
   create(model: T): Observable<T> {
-    return this.http.post(this.path, this.serialize(model))
-      .map((res: Response) => this.deserialize(res.json()));
+    return this.http.post(this.path, this.serialize(model)).pipe(
+      map((res: Response) => this.deserialize(res.json())));
   }
 
   update(model: T): Observable<T> {
     return this.http.put(
       ApiHelpers.interpolate(`${this.path}/:id`, model),
       this.serialize(model)
-    ).map((res: Response) => this.deserialize(res.json()));
+    ).pipe(map((res: Response) => this.deserialize(res.json())));
   }
 
   delete(model: T): Observable<boolean> {
@@ -73,6 +75,6 @@ export class ApiService<T> {
     return this.http.delete(
       ApiHelpers.interpolate(`${this.path}/:id`, model),
       requestOptions
-    ).map((res: Response) => res.ok);
+    ).pipe(map((res: Response) => res.ok));
   }
 }
