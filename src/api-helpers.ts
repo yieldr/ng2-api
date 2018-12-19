@@ -1,5 +1,5 @@
 import {URLSearchParams} from '@angular/http';
-import 'rxjs/add/operator/map';
+
 
 export class ApiHelpers {
   static interpolate(string: string, params: any, deleteParam: boolean = false): string {

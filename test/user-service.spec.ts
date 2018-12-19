@@ -6,6 +6,8 @@ import { ApiConfig, ApiHttp, ApiService } from '../src';
 
 import { Injectable } from '@angular/core';
 
+import {} from 'jasmine';
+
 export interface User {
   id?: string;
   name?: string;
@@ -48,7 +50,9 @@ describe('UsersService', () => {
       });
 
       usersService.findAll().subscribe((users: User[]) => {
-        expect(users).toEqual([{id: 1, name: 'Tom'}])
+        let expected: any = [{id: 1, name: 'Tom'}];
+
+        expect(users).toEqual(expected);
       });
     }))
   );
@@ -62,7 +66,9 @@ describe('UsersService', () => {
       });
 
       usersService.find(1).subscribe((user: User) => {
-        expect(user).toEqual({id: 1, name: 'Tom'})
+        let expected: any = {id: 1, name: 'Tom'};
+
+        expect(user).toEqual(expected);
       });
     }))
   );

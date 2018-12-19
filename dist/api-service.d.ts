@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 import { ApiHttp } from './api-http';
 export declare class ApiService<T> {
     protected http: ApiHttp;
